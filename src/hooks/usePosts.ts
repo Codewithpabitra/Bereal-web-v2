@@ -11,10 +11,11 @@ export const usePosts = () => {
     try {
       const { data } = await getFeedAPI();
       setPosts(data);
-    } catch {
+    } catch (err) {
+      console.error("Feed error:", err);
       toast.error("Failed to load feed");
     } finally {
-      setLoading(false);
+      setLoading(false); 
     }
   };
 
