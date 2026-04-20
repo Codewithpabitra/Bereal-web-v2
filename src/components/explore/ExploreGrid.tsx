@@ -18,10 +18,10 @@ export const ExploreGrid = ({ posts }: { posts: Post[] }) => {
             className="relative aspect-square overflow-hidden group"
           >
             <img
-              src={`${getImageUrl}${post.image}`}
-              alt=""
-              className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
-            />
+  src={getImageUrl(post.image)}
+  alt=""
+  className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+/>
             {/* Hover overlay */}
             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition flex items-center justify-center opacity-0 group-hover:opacity-100">
               <div className="flex items-center gap-1 text-white font-bold text-sm">
