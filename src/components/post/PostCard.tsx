@@ -29,8 +29,6 @@ export const PostCard = ({
   const { user } = useAuth();
   const [showComments, setShowComments] = useState(false);
 
-  
-
   return (
     <div className="bg-gray-900 rounded-2xl overflow-hidden border border-gray-800">
       {/* Repost banner */}
@@ -47,11 +45,7 @@ export const PostCard = ({
           to={`/profile/${post.user._id}`}
           className="flex items-center gap-3 hover:opacity-80 transition"
         >
-          <Avatar
-            src={post.user.avatar ? `${getImageUrl}${post.user.avatar}` : ""}
-            name={post.user.name}
-            size="md"
-          />
+          <Avatar src={post.user.avatar} name={post.user.name} size="md" />
           <div>
             <p className="font-semibold text-sm">{post.user.name}</p>
             <p className="text-xs text-gray-500">
@@ -77,7 +71,7 @@ export const PostCard = ({
 
       {/* Image */}
       <img
-        src={`${getImageUrl}${post.image}`}
+        src={getImageUrl(post.image)}
         alt="post"
         className="w-full aspect-square object-cover"
       />
