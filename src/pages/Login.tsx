@@ -28,7 +28,7 @@ export default function Login() {
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
-        <h1 className="text-4xl font-black text-center mb-2">Candid.</h1>
+        <h1 className="text-4xl font-black text-center mb-2">Candid<span className="text-primary">.</span></h1>
         <p className="text-gray-400 text-center mb-8">Be real. Be you.</p>
 
         <form onSubmit={handleSubmit} className="space-y-4">

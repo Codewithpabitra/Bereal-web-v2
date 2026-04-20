@@ -45,3 +45,13 @@ export interface User {
     monthlyPosts: { month: string; count: number }[];
     yearlyPosts: { year: string; count: number }[];
   }
+  export interface Notification {
+  _id: string;
+  recipient: string;
+  sender: User;
+  type: "like" | "comment" | "follow" | "repost";
+  post?: { _id: string; image: string };
+  read: boolean;
+  message: string;
+  createdAt: string;
+}

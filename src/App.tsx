@@ -10,6 +10,9 @@ import ProfileSetup from "./pages/ProfileSetup";
 import Feed from "./pages/Feed";
 import Profile from "./pages/Profile";
 import Saved from "./pages/Saved";
+import Explore from "./pages/Explore";
+import Notifications from "./pages/Notifications";
+
 
 function App() {
   return (
@@ -26,7 +29,7 @@ function App() {
           }}
         />
         <Routes>
-          {/* ✅ Splash is now the entry point */}
+          {/*Splash is now the entry point */}
           <Route path="/" element={<Splash />} />
           <Route path="/onboarding" element={<Onboarding />} />
           <Route path="/login" element={<Login />} />
@@ -47,6 +50,15 @@ function App() {
             path="/saved"
             element={<ProtectedRoute><Saved /></ProtectedRoute>}
           />
+          <Route
+  path="/explore"
+  element={<ProtectedRoute><Explore /></ProtectedRoute>}
+/>
+
+<Route
+  path="/notifications"
+  element={<ProtectedRoute><Notifications /></ProtectedRoute>}
+/>
         </Routes>
       </BrowserRouter>
     </AuthProvider>
