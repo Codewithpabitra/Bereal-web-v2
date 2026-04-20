@@ -4,8 +4,7 @@ import { Avatar } from "../ui/Avatar";
 import { Heart, MessageCircle, UserPlus, Repeat2 } from "lucide-react";
 import { formatDistanceToNow } from "../../utils/time";
 
-// const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
-const BASE_URL = "http://localhost:5000";
+import { getImageUrl } from "../../utils/config";
 
 const icons = {
   like: <Heart size={14} className="text-red-500" fill="currentColor" />,
@@ -30,7 +29,7 @@ export const NotificationItem = ({ notification, onRead }: Props) => {
       {/* Unread dot */}
       <div className="relative shrink-0">
         <Avatar
-          src={notification.sender.avatar ? `${BASE_URL}${notification.sender.avatar}` : ""}
+          src={notification.sender.avatar ? `${getImageUrl}${notification.sender.avatar}` : ""}
           name={notification.sender.name}
           size="md"
         />
@@ -60,7 +59,7 @@ export const NotificationItem = ({ notification, onRead }: Props) => {
       {/* Post thumbnail */}
       {notification.post?.image && (
         <img
-          src={`${BASE_URL}${notification.post.image}`}
+          src={`${getImageUrl}${notification.post.image}`}
           className="w-10 h-10 rounded-lg object-cover shrink-0"
         />
       )}

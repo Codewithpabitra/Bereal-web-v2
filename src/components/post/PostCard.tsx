@@ -9,6 +9,8 @@ import { useAuth } from "../../context/AuthContext";
 import { Trash2, Repeat2 } from "lucide-react";
 import { formatDistanceToNow } from "../../utils/time";
 
+import { getImageUrl } from "../../utils/config";
+
 interface PostCardProps {
   post: Post;
   onLike: (id: string) => void;
@@ -27,7 +29,7 @@ export const PostCard = ({
   const { user } = useAuth();
   const [showComments, setShowComments] = useState(false);
 
-  const BASE_URL = "http://localhost:5000";
+  
 
   return (
     <div className="bg-gray-900 rounded-2xl overflow-hidden border border-gray-800">
@@ -46,7 +48,7 @@ export const PostCard = ({
           className="flex items-center gap-3 hover:opacity-80 transition"
         >
           <Avatar
-            src={post.user.avatar ? `${BASE_URL}${post.user.avatar}` : ""}
+            src={post.user.avatar ? `${getImageUrl}${post.user.avatar}` : ""}
             name={post.user.name}
             size="md"
           />
@@ -75,7 +77,7 @@ export const PostCard = ({
 
       {/* Image */}
       <img
-        src={`${BASE_URL}${post.image}`}
+        src={`${getImageUrl}${post.image}`}
         alt="post"
         className="w-full aspect-square object-cover"
       />

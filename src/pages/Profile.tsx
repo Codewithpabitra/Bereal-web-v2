@@ -12,6 +12,8 @@ import { useAuth } from "../context/AuthContext";
 import { type User, type Post, type Analytics } from "../types";
 import toast from "react-hot-toast";
 
+import { getImageUrl } from "../utils/config";
+
 type Tab = "posts" | "liked" | "reposts" | "analytics";
 
 export default function Profile() {
@@ -65,7 +67,7 @@ export default function Profile() {
 
   if (loading) return <><Navbar /><div className="pt-20"><Spinner /></div></>;
 
-  const BASE_URL = "http://localhost:5000";
+
   const tabs: { key: Tab; label: string }[] = [
     { key: "posts", label: "Posts" },
     { key: "liked", label: "Liked" },
@@ -81,7 +83,7 @@ export default function Profile() {
         {/* Profile header */}
         <div className="flex items-center gap-4 mb-6">
           <Avatar
-            src={profile?.avatar ? `${BASE_URL}${profile.avatar}` : ""}
+            src={profile?.avatar ? `${getImageUrl}${profile.avatar}` : ""}
             name={profile?.name || ""}
             size="lg"
           />

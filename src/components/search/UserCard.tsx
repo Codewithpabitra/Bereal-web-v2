@@ -6,7 +6,7 @@ import { followUserAPI } from "../../api/users";
 import { useAuth } from "../../context/AuthContext";
 import toast from "react-hot-toast";
 
-const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+import { getImageUrl } from "../../utils/config";
 
 export const UserCard = ({ user }: { user: User }) => {
   const { user: me } = useAuth();
@@ -35,7 +35,7 @@ export const UserCard = ({ user }: { user: User }) => {
       className="flex items-center gap-3 p-3 rounded-xl hover:bg-gray-800 transition"
     >
       <Avatar
-        src={user.avatar ? `${BASE_URL}${user.avatar}` : ""}
+        src={user.avatar ? `${getImageUrl}${user.avatar}` : ""}
         name={user.name}
         size="md"
       />

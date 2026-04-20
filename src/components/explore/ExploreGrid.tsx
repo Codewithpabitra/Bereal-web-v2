@@ -3,7 +3,7 @@ import { type Post } from "../../types";
 import { Heart } from "lucide-react";
 import { ExplorePostModal } from "./ExplorePostModal";
 
-const BASE_URL = "http://localhost:5000";
+import { getImageUrl } from "../../utils/config";
 
 export const ExploreGrid = ({ posts }: { posts: Post[] }) => {
   const [selected, setSelected] = useState<Post | null>(null);
@@ -18,7 +18,7 @@ export const ExploreGrid = ({ posts }: { posts: Post[] }) => {
             className="relative aspect-square overflow-hidden group"
           >
             <img
-              src={`${BASE_URL}${post.image}`}
+              src={`${getImageUrl}${post.image}`}
               alt=""
               className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
             />
