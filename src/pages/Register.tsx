@@ -18,7 +18,7 @@ export default function Register() {
     setLoading(true);
     try {
       await register(name, email, password);
-      navigate("/feed");
+      navigate("/profile-setup");
     } catch {
       toast.error("Registration failed");
     } finally {
@@ -29,8 +29,8 @@ export default function Register() {
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
-        <h1 className="text-4xl font-black text-center mb-2">BeReal.</h1>
-        <p className="text-gray-400 text-center mb-8">Join your friends.</p>
+        <h1 className="text-4xl font-black text-center mb-2">Candid.</h1>
+        <p className="text-gray-400 text-center mb-8">Be Real. Be You.</p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <Input label="Name" value={name} onChange={e => setName(e.target.value)} placeholder="Your name" required />

@@ -8,3 +8,5 @@ export const updateProfileAPI = (formData: FormData) =>
 export const followUserAPI = (id: string) => api.put(`/users/${id}/follow`);
 export const getLikedPostsAPI = (id: string) => api.get(`/users/${id}/liked`);
 export const getRepostedPostsAPI = (id: string) => api.get(`/users/${id}/reposts`);
+export const searchUsersAPI = (query: string) =>
+  api.get(`/users/search?q=${encodeURIComponent(query)}`);

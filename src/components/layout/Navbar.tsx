@@ -16,7 +16,7 @@ export const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-40 bg-black border-b border-gray-800">
       <div className="max-w-2xl mx-auto px-4 h-14 flex items-center justify-between">
         <Link to="/feed" className="text-xl font-black text-white tracking-tight">
-          BeReal.
+          Candid.
         </Link>
         <div className="flex items-center gap-4">
           <Link to="/feed" className="text-gray-400 hover:text-white transition">
