@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { Navbar } from "../components/layout/Navbar";
 import { Avatar } from "../components/ui/Avatar";
 import { Button } from "../components/ui/Button";
-import { Spinner } from "../components/ui/Spinner";
 import { PostCard } from "../components/post/PostCard";
 import { AnalyticsChart } from "../components/profile/AnalyticsChart";
 import {
@@ -23,6 +22,7 @@ import { StreakBadge } from "../components/profile/StreakBadge";
 import { Link } from "react-router-dom";
 import { Archive, Pencil } from "lucide-react";
 import { InviteCard } from "../components/invite/InviteCard";
+import { ProfileSkeleton } from "../components/ui/ProfileSkeleton";
 
 type Tab = "posts" | "liked" | "reposts" | "analytics";
 
@@ -92,7 +92,7 @@ export default function Profile() {
       <>
         <Navbar />
         <div className="pt-20">
-          <Spinner />
+          <ProfileSkeleton />
         </div>
       </>
     );

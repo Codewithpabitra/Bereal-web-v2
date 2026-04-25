@@ -1,6 +1,6 @@
 import { Navbar } from "../components/layout/Navbar";
 import { PostCard } from "../components/post/PostCard";
-import { Spinner } from "../components/ui/Spinner";
+import { PostCardSkeleton } from "../components/ui/PostCardSkeleton";
 import { useSaved } from "../hooks/useSaved";
 
 export default function Saved() {
@@ -20,7 +20,11 @@ export default function Saved() {
         </h2>
 
         {loading ? (
-          <Spinner />
+          <div className="space-y-4">
+            {[1, 2, 3].map((i) => (
+              <PostCardSkeleton key={i} />
+            ))}
+          </div>
         ) : validSaved.length === 0 ? (
           <div className="text-center text-gray-500 py-20">
             <p className="text-lg">No saved posts yet.</p>

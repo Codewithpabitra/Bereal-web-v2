@@ -14,6 +14,7 @@ import Explore from "./pages/Explore";
 import Notifications from "./pages/Notifications";
 import Archive from "./pages/Archive";
 import EditProfile from "./pages/EditProfile";
+import Hashtag from "./pages/Hashtag";
 
 function App() {
   return (
@@ -98,6 +99,15 @@ function App() {
             element={
               <ProtectedRoute>
                 <EditProfile />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/hashtag/:tag"
+            element={
+              <ProtectedRoute>
+                <Hashtag />
               </ProtectedRoute>
             }
           />

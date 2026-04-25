@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Navbar } from "../components/layout/Navbar";
-import { Spinner } from "../components/ui/Spinner";
 import { UserCard } from "../components/search/UserCard";
 import { ExploreGrid } from "../components/explore/ExploreGrid";
 import { useSearch } from "../hooks/useSearch";
@@ -9,6 +8,8 @@ import { type Post } from "../types";
 import { Search, Compass } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import toast from "react-hot-toast";
+import { ExploreGridSkeleton, ExploreSkeleton } from "../components/ui/ExploreSkeleton";
+import { TrendingHashtags } from "../components/explore/TrendingHashtags";
 
 export default function Explore() {
   const { query, setQuery, results, loading: searchLoading } = useSearch();
@@ -58,6 +59,8 @@ export default function Explore() {
           )}
         </div>
 
+        <TrendingHashtags />
+
         <AnimatePresence mode="wait">
           {/* Search results */}
           {isSearching ? (
@@ -69,7 +72,7 @@ export default function Explore() {
               transition={{ duration: 0.2 }}
             >
               {searchLoading ? (
-                <Spinner />
+                <ExploreSkeleton />
               ) : results.length === 0 ? (
                 <div className="text-center text-gray-500 py-20">
                   <p className="text-lg">No users found</p>
@@ -101,7 +104,7 @@ export default function Explore() {
               </div>
 
               {exploreLoading ? (
-                <Spinner />
+                <ExploreGridSkeleton />
               ) : explorePosts.length === 0 ? (
                 <div className="text-center text-gray-500 py-20">
                   <p className="text-lg">No posts yet</p>

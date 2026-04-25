@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { Navbar } from "../components/layout/Navbar";
-import { Spinner } from "../components/ui/Spinner";
 import { NotificationItem } from "../components/notifications/NotificationItem";
 import { useNotifications } from "../hooks/useNotifications";
 import { Bell, CheckCheck } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { NotificationSkeleton } from "../components/ui/NotificationSkeleton";
 
 export default function Notifications() {
   const {
@@ -54,7 +54,7 @@ export default function Notifications() {
         {/* List */}
         <div className="bg-gray-900 rounded-2xl border border-gray-800 overflow-hidden">
           {loading ? (
-            <Spinner />
+            <NotificationSkeleton />
           ) : notifications.length === 0 ? (
             <div className="text-center text-gray-500 py-20">
               <Bell size={40} className="mx-auto mb-3 opacity-30" />

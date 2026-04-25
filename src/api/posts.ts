@@ -13,3 +13,6 @@ export const repostPostAPI = (id: string) => api.put(`/posts/${id}/repost`);
 export const sharePostAPI = (id: string) => api.put(`/posts/${id}/share`);
 export const getExploreAPI = () => api.get("/posts/explore");
 export const getArchiveAPI = () => api.get("/posts/archive");
+export const getPostsByHashtagAPI = (tag: string) =>
+  api.get(`/posts/hashtag/${tag}`);
+export const getTrendingHashtagsAPI = () => api.get("/posts/trending-hashtags");

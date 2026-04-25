@@ -11,6 +11,7 @@ import { formatDistanceToNow } from "../../utils/time";
 import { ReactionPicker } from "./ReactionPicker";
 
 import { getImageUrl } from "../../utils/config";
+import { Caption } from "./Caption";
 
 interface PostCardProps {
   post: Post;
@@ -80,10 +81,7 @@ export const PostCard = ({
       {/* Caption + Actions */}
       <div className="px-4 py-3">
         {post.caption && (
-          <p className="text-sm text-gray-200 mb-2">
-            <span className="font-semibold">{post.user.name}</span>{" "}
-            {post.caption}
-          </p>
+          <Caption text={post.caption} authorName={post.user.name} />
         )}
 
         <PostActions
@@ -94,7 +92,7 @@ export const PostCard = ({
           showComments={showComments}
           onToggleComments={() => setShowComments((p) => !p)}
         />
-        
+
         {/* emojis section */}
         <div className="mt-2">
           <ReactionPicker postId={post._id} />

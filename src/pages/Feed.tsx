@@ -1,12 +1,13 @@
 import { Navbar } from "../components/layout/Navbar";
 import { PostCard } from "../components/post/PostCard";
 import { CreatePost } from "../components/post/CreatePost";
-import { Spinner } from "../components/ui/Spinner";
 import { usePosts } from "../hooks/usePosts";
 import { Archive } from "lucide-react";
 import { Link } from "react-router-dom";
 import { SuggestedUsers } from "../components/profile/SuggestedUsers";
 import { InviteCard } from "../components/invite/InviteCard";
+import { SuggestedUsersSkeleton } from "../components/ui/SuggestedUsersSkeleton";
+import { PostCardSkeleton } from "../components/ui/PostCardSkeleton";
 
 export default function Feed() {
   const {
@@ -47,7 +48,12 @@ export default function Feed() {
 
         <CreatePost onCreated={fetchFeed} />
         {loading ? (
-          <Spinner />
+          <div className="space-y-4">
+            <SuggestedUsersSkeleton />
+            {[1, 2, 3].map((i) => (
+              <PostCardSkeleton key={i} />
+            ))}
+          </div>
         ) : posts.length === 0 ? (
           <div className="text-center text-gray-500 py-20">
             <p className="text-lg">No posts yet.</p>
