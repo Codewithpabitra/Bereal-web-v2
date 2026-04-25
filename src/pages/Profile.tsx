@@ -19,6 +19,10 @@ import { type User, type Post, type Analytics } from "../types";
 import { ImageOff } from "lucide-react";
 import toast from "react-hot-toast";
 
+import { StreakBadge } from "../components/profile/StreakBadge";
+import { Link } from "react-router-dom";
+import { Archive, Pencil } from "lucide-react";
+
 type Tab = "posts" | "liked" | "reposts" | "analytics";
 
 const EmptyTab = ({ message }: { message: string }) => (
@@ -47,12 +51,10 @@ export default function Profile() {
       try {
         const { data } = await getProfileAPI(id!);
         setProfile(data);
-        setFollowing(
-          data.followers.some((f: User) => f._id === me?._id)
-        );
+        setFollowing(data.followers.some((f: User) => f._id === me?._id));
 
         const [posts, liked, reposted] = await Promise.all([
-          getUserPostsAPI(id!),   // ← fetch user posts
+          getUserPostsAPI(id!), // ← fetch user posts
           getLikedPostsAPI(id!),
           getRepostedPostsAPI(id!),
         ]);
@@ -161,14 +163,9 @@ export default function Profile() {
     <div className="min-h-screen bg-black">
       <Navbar />
       <div className="max-w-xl mx-auto px-4 pt-20 pb-10">
-
         {/* Profile header */}
         <div className="flex items-center gap-4 mb-6">
-          <Avatar
-            src={profile?.avatar}
-            name={profile?.name || ""}
-            size="lg"
-          />
+          <Avatar src={profile?.avatar} name={profile?.name || ""} size="lg" />
           <div className="flex-1">
             <h2 className="text-xl font-bold">{profile?.name}</h2>
             <p className="text-gray-400 text-sm">{profile?.email}</p>
@@ -190,7 +187,25 @@ export default function Profile() {
               </span>
             </div>
           </div>
-          {!isMe && (
+
+          {isMe ? (
+            <div className="flex flex-col gap-2">
+              <Link
+                to="/edit-profile"
+                className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-gray-900 border border-gray-800 hover:border-gray-600 transition text-sm text-white"
+              >
+                <Pencil size={14} />
+                Edit
+              </Link>
+              <Link
+                to="/archive"
+                className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-gray-900 border border-gray-800 hover:border-gray-600 transition text-sm text-gray-400"
+              >
+                <Archive size={14} />
+                Archive
+              </Link>
+            </div>
+          ) : (
             <Button
               variant={following ? "ghost" : "primary"}
               onClick={handleFollow}
@@ -200,6 +215,16 @@ export default function Profile() {
           )}
         </div>
 
+          {/* Streak Badge  */}
+        {isMe && (
+          <div className="mb-6">
+            <StreakBadge
+              currentStreak={profile?.currentStreak || 0}
+              longestStreak={profile?.longestStreak || 0}
+            />
+          </div>
+        )}
+
         {/* Tabs */}
         <div className="flex border-b border-gray-800 mb-4">
           {tabs.map((t) => (
@@ -208,7 +233,7 @@ export default function Profile() {
               onClick={() => setActiveTab(t.key)}
               className={`flex-1 py-2 text-sm font-semibold transition flex flex-col items-center gap-0.5 ${
                 activeTab === t.key
-                  ? "text-white border-b-2 border-[#6C63FF]"
+                  ? "text-white border-b-2 border-primary"
                   : "text-gray-500 hover:text-gray-300"
               }`}
             >

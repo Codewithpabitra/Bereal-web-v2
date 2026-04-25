@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { Avatar } from "../ui/Avatar";
-import { Home, Bookmark, LogOut, Compass, Bell } from "lucide-react";
+import { Home, Bookmark, LogOut, Compass, Bell, Archive } from "lucide-react";
 import { useNotifications } from "../../hooks/useNotifications";
 
 export const Navbar = () => {
@@ -17,22 +17,44 @@ export const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-40 bg-black border-b border-gray-800">
       <div className="max-w-2xl mx-auto px-4 h-14 flex items-center justify-between">
-        <Link to="/feed" className="text-xl font-black text-white tracking-tight">
-          Candid
+        <Link
+          to="/feed"
+          className="text-xl font-black text-white tracking-tight"
+        >
+          Candid<span className="text-primary">.</span>
         </Link>
         <div className="flex items-center gap-4">
-          <Link to="/feed" className="text-gray-400 hover:text-white transition">
+          <Link
+            to="/feed"
+            className="text-gray-400 hover:text-white transition"
+          >
             <Home size={22} />
           </Link>
-          <Link to="/explore" className="text-gray-400 hover:text-white transition">
+          <Link
+            to="/explore"
+            className="text-gray-400 hover:text-white transition"
+          >
             <Compass size={22} />
           </Link>
-          <Link to="/saved" className="text-gray-400 hover:text-white transition">
+          <Link
+            to="/saved"
+            className="text-gray-400 hover:text-white transition"
+          >
             <Bookmark size={22} />
+          </Link>
+          
+          <Link
+            to="/archive"
+            className="text-gray-400 hover:text-white transition"
+          >
+            <Archive size={22} />
           </Link>
 
           {/* Bell with badge */}
-          <Link to="/notifications" className="relative text-gray-400 hover:text-white transition">
+          <Link
+            to="/notifications"
+            className="relative text-gray-400 hover:text-white transition"
+          >
             <Bell size={22} />
             {unreadCount > 0 && (
               <span

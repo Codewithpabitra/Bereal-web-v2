@@ -1,19 +1,24 @@
 import { useCountdown } from "../../hooks/useCountdown";
 import { Clock } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import Archive from "../../pages/Archive";
+import { Link } from "react-router-dom";
 
 export const ExpiryBadge = ({ expiresAt }: { expiresAt: string }) => {
   const timeLeft = useCountdown(expiresAt);
 
   // Post expired
   if (!timeLeft) {
-    return (
-      <span className="flex items-center gap-1 text-xs text-gray-600 font-medium">
-        <Clock size={12} />
-        Expired
-      </span>
-    );
-  }
+  return (
+    <Link
+      to="/archive"
+      className="flex items-center gap-1 text-xs text-gray-600 hover:text-gray-400 transition font-medium"
+    >
+      <Archive size={12} />
+      Moved to archive
+    </Link>
+  );
+}
 
   const { hours, minutes, seconds, diff } = timeLeft;
 

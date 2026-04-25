@@ -3,14 +3,40 @@ import { PostCard } from "../components/post/PostCard";
 import { CreatePost } from "../components/post/CreatePost";
 import { Spinner } from "../components/ui/Spinner";
 import { usePosts } from "../hooks/usePosts";
+import { Archive } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function Feed() {
-  const { posts, loading, fetchFeed, likePost, repostPost, sharePost, deletePost } = usePosts();
+  const {
+    posts,
+    loading,
+    fetchFeed,
+    likePost,
+    repostPost,
+    sharePost,
+    deletePost,
+  } = usePosts();
 
   return (
     <div className="min-h-screen bg-black">
       <Navbar />
       <div className="max-w-xl mx-auto px-4 pt-20 pb-10">
+        <Link
+          to="/archive"
+          className="flex items-center gap-3 bg-gray-900 border border-gray-800 rounded-2xl px-4 py-3 mb-4 hover:border-primary transition group"
+        >
+          <div className="w-8 h-8 rounded-lg bg-gray-800 flex items-center justify-center group-hover:bg-primary/20 transition">
+            <Archive size={16} className="text-primary" />
+          </div>
+          <div className="flex-1">
+            <p className="text-sm font-semibold text-white">Your Archive</p>
+            <p className="text-xs text-gray-500">
+              Posts older than 24hrs are saved here privately
+            </p>
+          </div>
+          <span className="text-gray-600 text-2xl">›</span>
+        </Link>
+
         <CreatePost onCreated={fetchFeed} />
         {loading ? (
           <Spinner />
@@ -21,7 +47,7 @@ export default function Feed() {
           </div>
         ) : (
           <div className="space-y-4">
-            {posts.map(post => (
+            {posts.map((post) => (
               <PostCard
                 key={post._id}
                 post={post}
