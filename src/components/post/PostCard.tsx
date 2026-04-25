@@ -8,6 +8,7 @@ import { ExpiryBadge } from "./ExpiryBadge";
 import { useAuth } from "../../context/AuthContext";
 import { Trash2, Repeat2 } from "lucide-react";
 import { formatDistanceToNow } from "../../utils/time";
+import { ReactionPicker } from "./ReactionPicker";
 
 import { getImageUrl } from "../../utils/config";
 
@@ -93,6 +94,11 @@ export const PostCard = ({
           showComments={showComments}
           onToggleComments={() => setShowComments((p) => !p)}
         />
+        
+        {/* emojis section */}
+        <div className="mt-2">
+          <ReactionPicker postId={post._id} />
+        </div>
 
         {showComments && <CommentSection postId={post._id} />}
       </div>

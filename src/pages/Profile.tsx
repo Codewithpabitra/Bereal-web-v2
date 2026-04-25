@@ -22,6 +22,7 @@ import toast from "react-hot-toast";
 import { StreakBadge } from "../components/profile/StreakBadge";
 import { Link } from "react-router-dom";
 import { Archive, Pencil } from "lucide-react";
+import { InviteCard } from "../components/invite/InviteCard";
 
 type Tab = "posts" | "liked" | "reposts" | "analytics";
 
@@ -215,13 +216,19 @@ export default function Profile() {
           )}
         </div>
 
-          {/* Streak Badge  */}
+        {/* Streak Badge  */}
         {isMe && (
           <div className="mb-6">
             <StreakBadge
               currentStreak={profile?.currentStreak || 0}
               longestStreak={profile?.longestStreak || 0}
             />
+          </div>
+        )}
+
+        {isMe && (
+          <div className="mb-6">
+            <InviteCard />
           </div>
         )}
 

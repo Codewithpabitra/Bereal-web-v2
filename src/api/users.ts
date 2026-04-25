@@ -11,3 +11,4 @@ export const getRepostedPostsAPI = (id: string) => api.get(`/users/${id}/reposts
 export const searchUsersAPI = (query: string) =>
   api.get(`/users/search?q=${encodeURIComponent(query)}`);
 export const getUserPostsAPI = (id: string) => api.get(`/users/${id}/posts`);
+export const getSuggestedUsersAPI = () => api.get("/users/suggested");

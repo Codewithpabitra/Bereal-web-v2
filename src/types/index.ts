@@ -58,3 +58,15 @@ export interface Notification {
   message: string;
   createdAt: string;
 }
+
+export interface Reaction {
+  _id: string;
+  post: string;
+  user: User;
+  emoji: string;
+}
+
+export interface ReactionGroup {
+  grouped: Record<string, User[]>;
+  total: number;
+}

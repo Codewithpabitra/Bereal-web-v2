@@ -1,7 +1,6 @@
 import { useCountdown } from "../../hooks/useCountdown";
-import { Clock } from "lucide-react";
+import { Clock ,Archive} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import Archive from "../../pages/Archive";
 import { Link } from "react-router-dom";
 
 export const ExpiryBadge = ({ expiresAt }: { expiresAt: string }) => {

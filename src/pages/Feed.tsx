@@ -5,6 +5,8 @@ import { Spinner } from "../components/ui/Spinner";
 import { usePosts } from "../hooks/usePosts";
 import { Archive } from "lucide-react";
 import { Link } from "react-router-dom";
+import { SuggestedUsers } from "../components/profile/SuggestedUsers";
+import { InviteCard } from "../components/invite/InviteCard";
 
 export default function Feed() {
   const {
@@ -36,6 +38,12 @@ export default function Feed() {
           </div>
           <span className="text-gray-600 text-2xl">›</span>
         </Link>
+
+        {/* suggested users  */}
+        <SuggestedUsers />
+
+        {/* Invite card — show only if few posts */}
+        {posts.length < 3 && <InviteCard />}
 
         <CreatePost onCreated={fetchFeed} />
         {loading ? (
