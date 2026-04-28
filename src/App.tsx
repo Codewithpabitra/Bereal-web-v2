@@ -16,6 +16,10 @@ import Archive from "./pages/Archive";
 import EditProfile from "./pages/EditProfile";
 import Hashtag from "./pages/Hashtag";
 
+// for PWA
+import { InstallBanner } from "./components/pwa/InstallBanner";
+import { IOSInstallPrompt } from "./components/pwa/IOSInstallPrompt";
+
 function App() {
   return (
     <AuthProvider>
@@ -30,6 +34,11 @@ function App() {
             },
           }}
         />
+
+         {/* Add both PWA prompts */}
+        <InstallBanner />
+        <IOSInstallPrompt />
+        
         <Routes>
           {/*Splash is now the entry point */}
           <Route path="/" element={<Splash />} />
