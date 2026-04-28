@@ -1,10 +1,10 @@
 import { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Navbar } from "../components/layout/Navbar";
 import { useAuth } from "../context/AuthContext";
 import { updateProfileAPI } from "../api/users";
 import { getImageUrl } from "../utils/config";
-import { Camera, ArrowLeft } from "lucide-react";
+import { Camera, ArrowLeft, UserX } from "lucide-react";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 
@@ -20,9 +20,7 @@ export default function EditProfile() {
   const [loading, setLoading] = useState(false);
 
   const hasChanges =
-    name !== user?.name ||
-    bio !== user?.bio ||
-    avatar !== null;
+    name !== user?.name || bio !== user?.bio || avatar !== null;
 
   const handleAvatar = (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0];
@@ -55,7 +53,6 @@ export default function EditProfile() {
     <div className="min-h-screen bg-black">
       <Navbar />
       <div className="max-w-xl mx-auto px-4 pt-20 pb-10">
-
         {/* Header */}
         <div className="flex items-center gap-3 mb-8">
           <button
@@ -116,14 +113,11 @@ export default function EditProfile() {
               className="hidden"
               onChange={handleAvatar}
             />
-            <p className="text-gray-500 text-sm mt-2">
-              Tap to change photo
-            </p>
+            <p className="text-gray-500 text-sm mt-2">Tap to change photo</p>
           </div>
 
           {/* Fields */}
           <div className="space-y-4">
-
             {/* Name */}
             <div>
               <label className="text-xs text-gray-500 uppercase tracking-wider mb-2 block">
@@ -181,6 +175,23 @@ export default function EditProfile() {
           >
             {loading ? "Saving..." : "Save Changes"}
           </button>
+
+          {/* Manage Blocked accounts  */}
+          <Link
+            to="/blocked"
+            className="flex items-center justify-between w-full py-4 px-4 bg-gray-900 border border-gray-800 rounded-2xl hover:border-gray-600 transition"
+          >
+            <div className="flex items-center gap-3">
+              <UserX size={18} className="text-gray-400" />
+              <div>
+                <p className="text-sm font-semibold text-white">
+                  Blocked Users
+                </p>
+                <p className="text-xs text-gray-500">Manage blocked accounts</p>
+              </div>
+            </div>
+            <span className="text-gray-600">›</span>
+          </Link>
 
           {/* Danger zone */}
           <div className="border border-red-900/40 rounded-2xl p-4">

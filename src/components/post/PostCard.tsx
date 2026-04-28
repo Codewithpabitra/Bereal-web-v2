@@ -6,12 +6,13 @@ import { PostActions } from "./PostActions";
 import { CommentSection } from "./CommentSection";
 import { ExpiryBadge } from "./ExpiryBadge";
 import { useAuth } from "../../context/AuthContext";
-import { Trash2, Repeat2 } from "lucide-react";
+import { Repeat2 } from "lucide-react";
 import { formatDistanceToNow } from "../../utils/time";
 import { ReactionPicker } from "./ReactionPicker";
 
 import { getImageUrl } from "../../utils/config";
 import { Caption } from "./Caption";
+import { PostMenu } from "../report/PostMenu";
 
 interface PostCardProps {
   post: Post;
@@ -60,14 +61,12 @@ export const PostCard = ({
           {/* ✅ Expiry badge */}
           <ExpiryBadge expiresAt={post.expiresAt} />
 
-          {user?._id === post.user._id && (
-            <button
-              onClick={() => onDelete(post._id)}
-              className="text-gray-500 hover:text-red-400 transition"
-            >
-              <Trash2 size={16} />
-            </button>
-          )}
+          <PostMenu
+            postId={post._id}
+            postUserId={post.user._id}
+            postUserName={post.user.name}
+            onDelete={() => onDelete(post._id)}
+          />
         </div>
       </div>
 

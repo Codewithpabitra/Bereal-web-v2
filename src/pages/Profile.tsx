@@ -23,6 +23,7 @@ import { Link } from "react-router-dom";
 import { Archive, Pencil } from "lucide-react";
 import { InviteCard } from "../components/invite/InviteCard";
 import { ProfileSkeleton } from "../components/ui/ProfileSkeleton";
+import { UserMenu } from "../components/report/UserMenu";
 
 type Tab = "posts" | "liked" | "reposts" | "analytics";
 
@@ -44,6 +45,8 @@ export default function Profile() {
   const [analytics, setAnalytics] = useState<Analytics | null>(null);
   const [loading, setLoading] = useState(true);
   const [following, setFollowing] = useState(false);
+
+  const [isBlocked, setIsBlocked] = useState(false);
 
   const isMe = me?._id === id;
 
@@ -207,12 +210,20 @@ export default function Profile() {
               </Link>
             </div>
           ) : (
-            <Button
-              variant={following ? "ghost" : "primary"}
-              onClick={handleFollow}
-            >
-              {following ? "Unfollow" : "Follow"}
-            </Button>
+            <div className="flex items-center gap-2">
+              <Button
+                variant={following ? "ghost" : "primary"}
+                onClick={handleFollow}
+              >
+                {following ? "Unfollow" : "Follow"}
+              </Button>
+              <UserMenu
+                userId={id!}
+                userName={profile?.name || ""}
+                isBlocked={isBlocked}
+                onBlockToggle={(blocked) => setIsBlocked(blocked)}
+              />
+            </div>
           )}
         </div>
 

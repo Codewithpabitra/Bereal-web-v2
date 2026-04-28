@@ -15,6 +15,7 @@ import Notifications from "./pages/Notifications";
 import Archive from "./pages/Archive";
 import EditProfile from "./pages/EditProfile";
 import Hashtag from "./pages/Hashtag";
+import BlockedUsers from "./pages/BlockedUsers";
 
 // for PWA
 import { InstallBanner } from "./components/pwa/InstallBanner";
@@ -35,10 +36,10 @@ function App() {
           }}
         />
 
-         {/* Add both PWA prompts */}
+        {/* Add both PWA prompts */}
         <InstallBanner />
         <IOSInstallPrompt />
-        
+
         <Routes>
           {/*Splash is now the entry point */}
           <Route path="/" element={<Splash />} />
@@ -117,6 +118,15 @@ function App() {
             element={
               <ProtectedRoute>
                 <Hashtag />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/blocked"
+            element={
+              <ProtectedRoute>
+                <BlockedUsers />
               </ProtectedRoute>
             }
           />
