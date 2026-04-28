@@ -4,25 +4,62 @@ import { Avatar } from "../ui/Avatar";
 import { Home, Bookmark, LogOut, Compass, Bell, Archive } from "lucide-react";
 import { useNotifications } from "../../hooks/useNotifications";
 
+// socket
+import { useSocket } from "../../context/SocketContext";
+
+import { getMeAPI } from "../../api/auth";
+import { useEffect } from "react";
+
 export const Navbar = () => {
-  const { user, logout } = useAuth();
+  const { user, logout , updateUser } = useAuth();
   const navigate = useNavigate();
   const { unreadCount } = useNotifications();
+  const { onlineCount } = useSocket(); // how many users are online
 
   const handleLogout = () => {
     logout();
     navigate("/login");
   };
 
+  // Verify current user when user changes
+  useEffect(() => {
+    const verifyUser = async () => {
+      try {
+        const { data } = await getMeAPI();
+        // Only update if same user
+        if (user && data._id === user._id) {
+          updateUser({ ...user, ...data });
+        }
+      } catch {
+        // Token expired or invalid — logout
+        logout();
+        navigate("/login");
+      }
+    };
+    if (user) verifyUser();
+  }, [user?._id]); // Re-run when user changes
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-40 bg-black border-b border-gray-800">
       <div className="max-w-2xl mx-auto px-4 h-14 flex items-center justify-between">
-        <Link
-          to="/feed"
-          className="text-xl font-black text-white tracking-tight"
-        >
-          Candid<span className="text-primary">.</span>
-        </Link>
+        <div className="flex items-center gap-3">
+          <Link
+            to="/feed"
+            className="text-xl font-black text-white tracking-tight"
+          >
+            Candid<span className="text-primary">.</span>
+          </Link>
+          {/* ✅ Online count */}
+          {onlineCount > 0 && (
+            <div className="flex items-center gap-1.5 bg-gray-900 border border-gray-800 rounded-full px-2.5 py-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+              <span className="text-xs text-gray-400">
+                {onlineCount} online
+              </span>
+            </div>
+          )}
+        </div>
+
         <div className="flex items-center gap-4">
           <Link
             to="/feed"
@@ -42,7 +79,7 @@ export const Navbar = () => {
           >
             <Bookmark size={22} />
           </Link>
-          
+
           <Link
             to="/archive"
             className="text-gray-400 hover:text-white transition"

@@ -6,8 +6,11 @@ import {
   markAllReadAPI,
   markOneReadAPI,
 } from "../api/notifications";
+import { useSocket } from "../context/SocketContext";
+import toast from "react-hot-toast";
 
 export const useNotifications = () => {
+  const { socket } = useSocket();
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [unreadCount, setUnreadCount] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -23,30 +26,63 @@ export const useNotifications = () => {
     try {
       const { data } = await getNotificationsAPI();
       setNotifications(data);
-    } catch {}  finally {
+    } catch {}
+    finally {
       setLoading(false);
     }
   }, []);
 
-  // Poll every 30 seconds for new notifications
+  // Initial load
   useEffect(() => {
     fetchUnreadCount();
-    const interval = setInterval(fetchUnreadCount, 30000);
-    return () => clearInterval(interval);
   }, []);
+
+  // ✅ Real-time socket listener
+  useEffect(() => {
+    if (!socket) return;
+
+    socket.on("notification:new", (notification: Notification) => {
+      // Add to list
+      setNotifications((prev) => [notification, ...prev]);
+
+      // Increment unread count
+      setUnreadCount((prev) => prev + 1);
+
+      // Show toast popup
+      const icons: Record<string, string> = {
+        like: "❤️",
+        comment: "💬",
+        follow: "👤",
+        repost: "🔁",
+      };
+
+      toast(notification.message, {
+        icon: icons[notification.type] || "🔔",
+        style: {
+          background: "#1f2937",
+          color: "#fff",
+          borderRadius: "12px",
+        },
+      });
+    });
+
+    return () => {
+      socket.off("notification:new");
+    };
+  }, [socket]);
 
   const markAllRead = async () => {
     await markAllReadAPI();
     setUnreadCount(0);
-    setNotifications(prev => prev.map(n => ({ ...n, read: true })));
+    setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
   };
 
   const markOneRead = async (id: string) => {
     await markOneReadAPI(id);
-    setNotifications(prev =>
-      prev.map(n => (n._id === id ? { ...n, read: true } : n))
+    setNotifications((prev) =>
+      prev.map((n) => (n._id === id ? { ...n, read: true } : n))
     );
-    setUnreadCount(prev => Math.max(0, prev - 1));
+    setUnreadCount((prev) => Math.max(0, prev - 1));
   };
 
   return {

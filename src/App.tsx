@@ -21,9 +21,13 @@ import BlockedUsers from "./pages/BlockedUsers";
 import { InstallBanner } from "./components/pwa/InstallBanner";
 import { IOSInstallPrompt } from "./components/pwa/IOSInstallPrompt";
 
+// socket
+import { SocketProvider } from "./context/SocketContext";
+
 function App() {
   return (
     <AuthProvider>
+      <SocketProvider>
       <BrowserRouter>
         <Toaster
           position="top-center"
@@ -132,6 +136,7 @@ function App() {
           />
         </Routes>
       </BrowserRouter>
+      </SocketProvider>
     </AuthProvider>
   );
 }

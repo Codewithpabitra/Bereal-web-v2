@@ -3,7 +3,11 @@ import { type Post } from "../types";
 import { getFeedAPI, likePostAPI, repostPostAPI, sharePostAPI, deletePostAPI } from "../api/posts";
 import toast from "react-hot-toast";
 
+// socket -> live feed whenever any user post
+import { useSocket } from "../context/SocketContext";
+
 export const usePosts = () => {
+  const { socket } = useSocket();
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -20,6 +24,23 @@ export const usePosts = () => {
   };
 
   useEffect(() => { fetchFeed(); }, []);
+
+  // ✅ Real-time new post listener
+  // useEffect(() => {
+  //   if (!socket) return;
+
+  //   socket.on("post:new", (post: Post) => {
+  //     setPosts((prev) => {
+  //       // Don't add duplicates
+  //       if (prev.find((p) => p._id === post._id)) return prev;
+  //       return [post, ...prev];
+  //     });
+  //   });
+
+  //   return () => {
+  //     socket.off("post:new");
+  //   };
+  // }, [socket]);
 
   const likePost = async (id: string) => {
     const { data } = await likePostAPI(id);

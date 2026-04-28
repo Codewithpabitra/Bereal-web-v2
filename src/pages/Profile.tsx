@@ -54,6 +54,11 @@ export default function Profile() {
     const fetch = async () => {
       try {
         const { data } = await getProfileAPI(id!);
+        // Verify the profile data matches the expected user
+        if (data._id !== id) {
+          toast.error("Profile data mismatch");
+          return;
+        }
         setProfile(data);
         setFollowing(data.followers.some((f: User) => f._id === me?._id));
 
@@ -78,7 +83,7 @@ export default function Profile() {
       }
     };
     fetch();
-  }, [id]);
+  }, [id, me?._id]); // Re-fetch when user changes
 
   const handleFollow = async () => {
     try {

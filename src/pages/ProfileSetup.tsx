@@ -22,24 +22,27 @@ export default function ProfileSetup() {
     setPreview(URL.createObjectURL(f));
   };
 
-  const handleSubmit = async () => {
-    setLoading(true);
-    try {
-      const form = new FormData();
-      form.append("bio", bio);
-      form.append("name", user?.name || "");
-      if (avatar) form.append("avatar", avatar);
+ const handleSubmit = async () => {
+  setLoading(true);
+  try {
+    const form = new FormData();
+    form.append("bio", bio);
+    form.append("name", user?.name || "");
+    if (avatar) form.append("avatar", avatar);
 
-      const { data } = await updateProfileAPI(form);
-      updateUser({ ...user!, ...data });
-      toast.success("Profile set up! Welcome to Candid 🎉");
-      navigate("/feed");
-    } catch {
-      toast.error("Failed to save profile");
-    } finally {
-      setLoading(false);
-    }
-  };
+    const { data } = await updateProfileAPI(form);
+
+    // ✅ Use server response directly
+    updateUser(data);
+
+    toast.success("Profile set up! Welcome to Candid 🎉");
+    navigate("/feed");
+  } catch {
+    toast.error("Failed to save profile");
+  } finally {
+    setLoading(false);
+  }
+};
 
   const handleSkip = () => navigate("/feed");
 

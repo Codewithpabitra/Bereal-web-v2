@@ -30,24 +30,27 @@ export default function EditProfile() {
   };
 
   const handleSave = async () => {
-    if (!name.trim()) return toast.error("Name cannot be empty");
-    setLoading(true);
-    try {
-      const form = new FormData();
-      form.append("name", name.trim());
-      form.append("bio", bio.trim());
-      if (avatar) form.append("avatar", avatar);
+  if (!name.trim()) return toast.error("Name cannot be empty");
+  setLoading(true);
+  try {
+    const form = new FormData();
+    form.append("name", name.trim());
+    form.append("bio", bio.trim());
+    if (avatar) form.append("avatar", avatar);
 
-      const { data } = await updateProfileAPI(form);
-      updateUser({ ...user!, ...data });
-      toast.success("Profile updated! ✅");
-      navigate(`/profile/${user?._id}`);
-    } catch {
-      toast.error("Failed to update profile");
-    } finally {
-      setLoading(false);
-    }
-  };
+    const { data } = await updateProfileAPI(form);
+
+    //Use only server response — don't merge with stale user state
+    updateUser(data);
+
+    toast.success("Profile updated!");
+    navigate(`/profile/${user?._id}`);
+  } catch {
+    toast.error("Failed to update profile");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="min-h-screen bg-black">
