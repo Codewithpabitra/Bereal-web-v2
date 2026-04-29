@@ -11,7 +11,7 @@ export default function Saved() {
   return (
     <div className="min-h-screen bg-black">
       <Navbar />
-      <div className="max-w-xl mx-auto px-4 pt-20 pb-10">
+      <div className="max-w-xl mx-auto px-4 pt-20 pb-24">
         <h2 className="text-xl font-bold mb-6">
           Saved Posts{" "}
           <span className="text-gray-500 text-base font-normal">

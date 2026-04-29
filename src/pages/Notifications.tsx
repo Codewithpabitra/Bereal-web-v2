@@ -23,7 +23,7 @@ export default function Notifications() {
   return (
     <div className="min-h-screen bg-black">
       <Navbar />
-      <div className="max-w-xl mx-auto pt-20 pb-10">
+      <div className="max-w-xl mx-auto pt-20 pb-24">
 
         {/* Header */}
         <div className="flex items-center justify-between px-4 mb-4">

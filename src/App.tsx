@@ -16,6 +16,8 @@ import Archive from "./pages/Archive";
 import EditProfile from "./pages/EditProfile";
 import Hashtag from "./pages/Hashtag";
 import BlockedUsers from "./pages/BlockedUsers";
+import { BottomNav } from "./components/layout/BottomNav";
+import { Navbar } from "./components/layout/Navbar";
 
 // for PWA
 import { InstallBanner } from "./components/pwa/InstallBanner";
@@ -23,6 +25,32 @@ import { IOSInstallPrompt } from "./components/pwa/IOSInstallPrompt";
 
 // socket
 import { SocketProvider } from "./context/SocketContext";
+import { useLocation } from "react-router-dom";
+import { useAuth } from "./context/AuthContext";
+
+
+// Separate component to use hooks inside BrowserRouter
+const AppLayout = ({ children }: { children: React.ReactNode }) => {
+  const location = useLocation();
+  const { user } = useAuth();
+
+  // Pages where we don't show nav
+  const hideNav = [
+    "/login",
+    "/register",
+    "/onboarding",
+    "/",
+    "/profile-setup",
+  ].includes(location.pathname);
+
+  return (
+    <>
+      {!hideNav && user && <Navbar />}
+      {!hideNav && user && <BottomNav />}
+      {children}
+    </>
+  );
+};
 
 function App() {
   return (
@@ -44,6 +72,7 @@ function App() {
         <InstallBanner />
         <IOSInstallPrompt />
 
+          <AppLayout>
         <Routes>
           {/*Splash is now the entry point */}
           <Route path="/" element={<Splash />} />
@@ -135,6 +164,7 @@ function App() {
             }
           />
         </Routes>
+        </AppLayout>
       </BrowserRouter>
       </SocketProvider>
     </AuthProvider>

@@ -23,7 +23,7 @@ export default function Feed() {
   return (
     <div className="min-h-screen bg-black">
       <Navbar />
-      <div className="max-w-xl mx-auto px-4 pt-20 pb-10">
+      <div className="max-w-xl mx-auto px-4 pt-20 pb-24">
         <Link
           to="/archive"
           className="flex items-center gap-3 bg-gray-900 border border-gray-800 rounded-2xl px-4 py-3 mb-4 hover:border-primary transition group"

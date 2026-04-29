@@ -35,7 +35,7 @@ export default function Explore() {
   return (
     <div className="min-h-screen bg-black">
       <Navbar />
-      <div className="max-w-xl mx-auto px-4 pt-20 pb-10">
+      <div className="max-w-xl mx-auto px-4 pt-20 pb-24">
 
         {/* Search bar */}
         <div className="relative mb-6">
