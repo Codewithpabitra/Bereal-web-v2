@@ -31,6 +31,7 @@ export default function EditProfile() {
 
   const handleSave = async () => {
   if (!name.trim()) return toast.error("Name cannot be empty");
+
   setLoading(true);
   try {
     const form = new FormData();
@@ -40,11 +41,16 @@ export default function EditProfile() {
 
     const { data } = await updateProfileAPI(form);
 
-    //Use only server response — don't merge with stale user state
-    updateUser(data);
+    // preserve token
+    updateUser({
+      ...user,
+      ...data,
+    });
 
     toast.success("Profile updated!");
-    navigate(`/profile/${user?._id}`);
+
+    // use fresh id
+    navigate(`/profile/${data._id}`);
   } catch {
     toast.error("Failed to update profile");
   } finally {
