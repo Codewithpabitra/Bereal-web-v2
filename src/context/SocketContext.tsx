@@ -34,20 +34,21 @@ export const SocketProvider = ({ children }: { children: ReactNode }) => {
 
   // Handle socket connection and events when user is logged in
   useEffect(() => {
-    if (!user?._id || socket) return;
+  if (!user?._id) return;
 
-    const s = initSocket(user._id);
-    setSocket(s);
+  const s = initSocket(user._id);
+  setSocket(s);
 
-    s.on("users:online-count", (count: number) => {
-      setOnlineCount(count);
-    });
+  const handleOnlineCount = (count: number) => {
+    setOnlineCount(count);
+  };
 
-    return () => {
-      disconnectSocket();
-      setSocket(null);
-    };
-  }, [user?._id, socket]);
+  s.on("users:online-count", handleOnlineCount);
+
+  return () => {
+    s.off("users:online-count", handleOnlineCount); // remove listener only
+  };
+}, [user?._id]);
 
   return (
     <SocketContext.Provider value={{ socket, onlineCount }}>

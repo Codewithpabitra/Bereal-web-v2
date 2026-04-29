@@ -5,7 +5,8 @@ const BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:5000";
 let socket: Socket | null = null;
 
 export const initSocket = (userId: string): Socket => {
-  if (socket?.connected) return socket;
+  // if (socket?.connected) return socket;
+  if (socket) return socket;
 
   socket = io(BASE_URL, {
     transports: ["websocket", "polling"],
