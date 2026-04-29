@@ -32,8 +32,11 @@ export default function ProfileSetup() {
 
     const { data } = await updateProfileAPI(form);
 
-    // ✅ Use server response directly
-    updateUser(data);
+    // preserve token
+    updateUser({
+      ...user,
+      ...data,
+    });
 
     toast.success("Profile set up! Welcome to Candid 🎉");
     navigate("/feed");
