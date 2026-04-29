@@ -4,10 +4,10 @@ import { getFeedAPI, likePostAPI, repostPostAPI, sharePostAPI, deletePostAPI } f
 import toast from "react-hot-toast";
 
 // socket -> live feed whenever any user post
-import { useSocket } from "../context/SocketContext";
+// import { useSocket } from "../context/SocketContext";
 
 export const usePosts = () => {
-  const { socket } = useSocket();
+  // const { socket } = useSocket();
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
 

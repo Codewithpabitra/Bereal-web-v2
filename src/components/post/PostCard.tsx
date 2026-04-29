@@ -5,7 +5,7 @@ import { Avatar } from "../ui/Avatar";
 import { PostActions } from "./PostActions";
 import { CommentSection } from "./CommentSection";
 import { ExpiryBadge } from "./ExpiryBadge";
-import { useAuth } from "../../context/AuthContext";
+// import { useAuth } from "../../context/AuthContext";
 import { Repeat2 } from "lucide-react";
 import { formatDistanceToNow } from "../../utils/time";
 import { ReactionPicker } from "./ReactionPicker";
@@ -29,7 +29,7 @@ export const PostCard = ({
   onShare,
   onDelete,
 }: PostCardProps) => {
-  const { user } = useAuth();
+  // const { user } = useAuth();
   const [showComments, setShowComments] = useState(false);
 
   return (
