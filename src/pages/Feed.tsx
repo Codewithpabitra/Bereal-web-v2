@@ -8,6 +8,7 @@ import { SuggestedUsers } from "../components/profile/SuggestedUsers";
 import { InviteCard } from "../components/invite/InviteCard";
 import { SuggestedUsersSkeleton } from "../components/ui/SuggestedUsersSkeleton";
 import { PostCardSkeleton } from "../components/ui/PostCardSkeleton";
+import { MemoriesCard } from "../components/feed/MemoriesCard";
 
 export default function Feed() {
   const {
@@ -42,6 +43,9 @@ export default function Feed() {
 
         {/* suggested users  */}
         <SuggestedUsers />
+
+        {/* shows only when memories exist */}
+        <MemoriesCard /> 
 
         {/* Invite card — show only if few posts */}
         {posts.length < 3 && <InviteCard />}

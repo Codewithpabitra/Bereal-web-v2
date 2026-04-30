@@ -84,3 +84,9 @@ export interface Leaderboard {
   weekEnd: string;
   totalPosts: number;
 }
+
+export interface Memory {
+  yearsAgo: number;
+  date: string;
+  posts: Post[];
+}

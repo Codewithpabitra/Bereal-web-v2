@@ -15,7 +15,7 @@ import {
 import { getMyAnalyticsAPI } from "../api/analytics";
 import { useAuth } from "../context/AuthContext";
 import { type User, type Post, type Analytics } from "../types";
-import { ImageOff } from "lucide-react";
+import { ImageOff, Sparkles } from "lucide-react";
 import toast from "react-hot-toast";
 
 import { StreakBadge } from "../components/profile/StreakBadge";
@@ -212,6 +212,14 @@ export default function Profile() {
               >
                 <Archive size={14} />
                 Archive
+              </Link>
+
+              <Link
+                to="/memories"
+                className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-gray-900 border border-gray-800 hover:border-gray-600 transition text-sm text-gray-400"
+              >
+                <Sparkles size={14} />
+                Memories
               </Link>
             </div>
           ) : (

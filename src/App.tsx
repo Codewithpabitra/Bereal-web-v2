@@ -17,6 +17,7 @@ import EditProfile from "./pages/EditProfile";
 import Hashtag from "./pages/Hashtag";
 import BlockedUsers from "./pages/BlockedUsers";
 import Leaderboard from "./pages/Leaderboard";
+import Memories from "./pages/Memories";
 import { BottomNav } from "./components/layout/BottomNav";
 import { Navbar } from "./components/layout/Navbar";
 
@@ -169,6 +170,15 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <Leaderboard />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/memories"
+                element={
+                  <ProtectedRoute>
+                    <Memories />
                   </ProtectedRoute>
                 }
               />
