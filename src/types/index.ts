@@ -70,3 +70,17 @@ export interface ReactionGroup {
   grouped: Record<string, User[]>;
   total: number;
 }
+
+export interface LeaderboardEntry {
+  rank: number;
+  post: Post;
+  user: User;
+  likeCount: number;
+}
+
+export interface Leaderboard {
+  leaderboard: LeaderboardEntry[];
+  weekStart: string;
+  weekEnd: string;
+  totalPosts: number;
+}

@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 // import { useAuth } from "../../context/AuthContext";
 import { useNotifications } from "../../hooks/useNotifications";
-import { Home, Compass, Bookmark, Bell, Archive } from "lucide-react";
+import { Home, Compass, Bookmark, Bell, Archive, Trophy } from "lucide-react";
 import { motion } from "framer-motion";
 
 interface NavItem {
@@ -43,6 +43,7 @@ export const BottomNav = () => {
       icon: Archive,
       label: "Archive",
     },
+    { path: "/leaderboard", icon: Trophy, label: "Top" },
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -87,7 +88,7 @@ export const BottomNav = () => {
                     className="absolute -top-2 -right-2 text-white text-[9px] font-black min-w-4 h-4 rounded-full flex items-center justify-center px-1"
                     style={{ backgroundColor: "#6C63FF" }}
                   >
-                    { item.badge > 9 ? "9+" : item.badge}
+                    {item.badge > 9 ? "9+" : item.badge}
                   </span>
                 )}
               </div>

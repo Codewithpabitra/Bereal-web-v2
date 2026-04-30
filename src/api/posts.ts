@@ -16,3 +16,4 @@ export const getArchiveAPI = () => api.get("/posts/archive");
 export const getPostsByHashtagAPI = (tag: string) =>
   api.get(`/posts/hashtag/${tag}`);
 export const getTrendingHashtagsAPI = () => api.get("/posts/trending-hashtags");
+export const getLeaderboardAPI = () => api.get("/posts/leaderboard");
