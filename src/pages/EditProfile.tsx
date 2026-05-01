@@ -4,9 +4,12 @@ import { Navbar } from "../components/layout/Navbar";
 import { useAuth } from "../context/AuthContext";
 import { updateProfileAPI } from "../api/users";
 import { getImageUrl } from "../utils/config";
-import { Camera, ArrowLeft, UserX } from "lucide-react";
+import { Camera, ArrowLeft, UserX, KeyRound, Trash2 , AlertTriangle} from "lucide-react";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
+
+import { ChangePasswordModal } from "../components/settings/ChangePasswordModal";
+import { DeleteAccountModal } from "../components/settings/DeleteAccountModal";
 
 export default function EditProfile() {
   const { user, updateUser } = useAuth();
@@ -19,6 +22,9 @@ export default function EditProfile() {
   const [preview, setPreview] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
+  const [showChangePassword, setShowChangePassword] = useState(false);
+  const [showDeleteAccount, setShowDeleteAccount] = useState(false);
+
   const hasChanges =
     name !== user?.name || bio !== user?.bio || avatar !== null;
 
@@ -30,33 +36,33 @@ export default function EditProfile() {
   };
 
   const handleSave = async () => {
-  if (!name.trim()) return toast.error("Name cannot be empty");
+    if (!name.trim()) return toast.error("Name cannot be empty");
 
-  setLoading(true);
-  try {
-    const form = new FormData();
-    form.append("name", name.trim());
-    form.append("bio", bio.trim());
-    if (avatar) form.append("avatar", avatar);
+    setLoading(true);
+    try {
+      const form = new FormData();
+      form.append("name", name.trim());
+      form.append("bio", bio.trim());
+      if (avatar) form.append("avatar", avatar);
 
-    const { data } = await updateProfileAPI(form);
+      const { data } = await updateProfileAPI(form);
 
-    // preserve token
-    updateUser({
-      ...user,
-      ...data,
-    });
+      // preserve token
+      updateUser({
+        ...user,
+        ...data,
+      });
 
-    toast.success("Profile updated!");
+      toast.success("Profile updated!");
 
-    // use fresh id
-    navigate(`/profile/${data._id}`);
-  } catch {
-    toast.error("Failed to update profile");
-  } finally {
-    setLoading(false);
-  }
-};
+      // use fresh id
+      navigate(`/profile/${data._id}`);
+    } catch {
+      toast.error("Failed to update profile");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-black">
@@ -203,17 +209,61 @@ export default function EditProfile() {
           </Link>
 
           {/* Danger zone */}
-          <div className="border border-red-900/40 rounded-2xl p-4">
-            <p className="text-red-500 text-sm font-semibold mb-1">
-              Danger Zone
-            </p>
-            <p className="text-gray-600 text-xs mb-3">
-              These actions cannot be undone
-            </p>
-            <button className="text-red-500 text-sm hover:text-red-400 transition">
-              Delete Account
+          <div className="space-y-3">
+            {/* Change Password */}
+            <button
+              onClick={() => setShowChangePassword(true)}
+              className="w-full flex items-center gap-3 px-4 py-4 bg-gray-900 border border-gray-800 rounded-2xl hover:border-gray-600 transition text-left"
+            >
+              <div className="w-10 h-10 rounded-xl bg-gray-800 flex items-center justify-center shrink-0">
+                <KeyRound size={18} className="text-gray-400" />
+              </div>
+              <div className="flex-1">
+                <p className="text-sm font-semibold text-white">
+                  Change Password
+                </p>
+                <p className="text-xs text-gray-500">
+                  Update your account password
+                </p>
+              </div>
+              <span className="text-gray-600">›</span>
             </button>
+
+            {/* Danger zone */}
+            <div className="border border-red-900/40 rounded-2xl p-4 space-y-3">
+              <div className="flex items-center gap-2">
+                <AlertTriangle size={14} className="text-red-500" />
+                <p className="text-red-500 text-sm font-bold">Danger Zone</p>
+              </div>
+              <p className="text-gray-600 text-xs">
+                These actions are permanent and cannot be undone.
+              </p>
+              <button
+                onClick={() => setShowDeleteAccount(true)}
+                className="w-full flex items-center gap-3 px-4 py-3 bg-red-500/10 border border-red-500/30 rounded-xl hover:bg-red-500/20 transition text-left"
+              >
+                <Trash2 size={16} className="text-red-400 shrink-0" />
+                <div>
+                  <p className="text-sm font-semibold text-red-400">
+                    Delete Account
+                  </p>
+                  <p className="text-xs text-red-400/60">
+                    Permanently delete your account and all data
+                  </p>
+                </div>
+              </button>
+            </div>
           </div>
+
+          {/* Modals */}
+          <ChangePasswordModal
+            open={showChangePassword}
+            onClose={() => setShowChangePassword(false)}
+          />
+          <DeleteAccountModal
+            open={showDeleteAccount}
+            onClose={() => setShowDeleteAccount(false)}
+          />
         </motion.div>
       </div>
     </div>
